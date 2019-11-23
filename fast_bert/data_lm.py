@@ -23,14 +23,16 @@ from transformers import (WEIGHTS_NAME, BertConfig,
                           XLNetForSequenceClassification,
                           XLNetTokenizer,
                           RobertaConfig, RobertaForSequenceClassification, RobertaTokenizer,
-                          DistilBertConfig, DistilBertForSequenceClassification, DistilBertTokenizer)
+                          DistilBertConfig, DistilBertForSequenceClassification, DistilBertTokenizer,
+                          CamembertConfig, CamembertForSequenceClassification, CamembertTokenizer)
 
 MODEL_CLASSES = {
     'bert': (BertConfig, BertForSequenceClassification, BertTokenizer),
     'xlnet': (XLNetConfig, XLNetForSequenceClassification, XLNetTokenizer),
     'xlm': (XLMConfig, XLMForSequenceClassification, XLMTokenizer),
     'roberta': (RobertaConfig, RobertaForSequenceClassification, RobertaTokenizer),
-    'distilbert': (DistilBertConfig, DistilBertForSequenceClassification, DistilBertTokenizer)
+    'distilbert': (DistilBertConfig, DistilBertForSequenceClassification, DistilBertTokenizer),
+    'camembert': (CamembertConfig, CamembertForSequenceClassification, CamembertTokenizer)
 }
 
 # Create text corpus suitable for language model training

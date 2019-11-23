@@ -176,6 +176,7 @@ def read_examples(input_file, is_training, version_2_with_negative, logger):
                 examples.append(example)
     return examples
 
+
 def convert_examples_to_features(examples, tokenizer, max_seq_length,
                                  doc_stride, max_query_length, is_training, logger,
                                  cls_token_at_end=False,
@@ -594,4 +595,3 @@ class BertQADataBunch(object):
             self.val_batch_size = self.batch_size_per_gpu * 2 * max(1, self.n_gpu)
             val_sampler = SequentialSampler(dataset)
             self.val_dl = DataLoader(dataset, sampler=val_sampler, batch_size=self.train_batch_size)
-                
