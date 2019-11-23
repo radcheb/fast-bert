@@ -244,10 +244,6 @@ class CamembertForMultiLabelSequenceClassification(CamembertForSequenceClassific
             Classification (or regression if config.num_labels==1) loss.
         **logits**: ``torch.FloatTensor`` of shape ``(batch_size, config.num_labels)``
             Classification (or regression if config.num_labels==1) scores (before SoftMax).
-        **mems**:
-            list of ``torch.FloatTensor`` (one for each layer):
-            that contains pre-computed hidden-states (key and values in the attention blocks) as computed by the model
-            (see `mems` input above). Can be used to speed up sequential decoding and attend to longer context.
         **hidden_states**: (`optional`, returned when ``config.output_hidden_states=True``)
             list of ``torch.FloatTensor`` (one for the output of each layer + the output of the embeddings)
             of shape ``(batch_size, sequence_length, hidden_size)``:
@@ -256,30 +252,26 @@ class CamembertForMultiLabelSequenceClassification(CamembertForSequenceClassific
             list of ``torch.FloatTensor`` (one for each layer) of shape ``(batch_size, num_heads, sequence_length, sequence_length)``:
             Attentions weights after the attention softmax, used to compute the weighted average in the self-attention heads.
     Examples::
-        >>> config = CamembertConfig.from_pretrained('camembert-base')
-        >>> tokenizer = CamembertTokenizer.from_pretrained('camembert-base')
-        >>>
-        >>> model = CamembertForSequenceClassification(config)
-        >>> input_ids = torch.tensor(tokenizer.encode("Hello, my dog is cute")).unsqueeze(0)  # Batch size 1
-        >>> labels = torch.tensor([1]).unsqueeze(0)  # Batch size 1
-        >>> outputs = model(input_ids, labels=labels)
-        >>> loss, logits = outputs[:2]
+        tokenizer = CamembertTokenizer.from_pretrained('camembert-base')
+        model = CamembertForSequenceClassification.from_pretrained('camembert-base')
+        input_ids = torch.tensor(tokenizer.encode("Hello, my dog is cute")).unsqueeze(0)  # Batch size 1
+        labels = torch.tensor([1]).unsqueeze(0)  # Batch size 1
+        outputs = model(input_ids, labels=labels)
+        loss, logits = outputs[:2]
     """
 
-    def forward(self, input_ids, token_type_ids=None, input_mask=None, attention_mask=None,
-                mems=None, perm_mask=None, target_mapping=None,
-                labels=None, head_mask=None):
-        transformer_outputs = self.transformer(input_ids, token_type_ids=token_type_ids,
-                                               input_mask=input_mask, attention_mask=attention_mask,
-                                               mems=mems, perm_mask=perm_mask, target_mapping=target_mapping,
-                                               head_mask=head_mask)
-        output = transformer_outputs[0]
+    config_class = CamembertConfig
+    #    pretrained_model_archive_map = ROBERTA_PRETRAINED_MODEL_ARCHIVE_MAP
+    base_model_prefix = "camembert"
 
-        output = self.sequence_summary(output)
-        logits = self.logits_proj(output)
+    def forward(self, input_ids, token_type_ids=None, attention_mask=None, labels=None,
+                position_ids=None, head_mask=None):
+        outputs = self.roberta(input_ids, position_ids=position_ids, token_type_ids=token_type_ids,
+                               attention_mask=attention_mask, head_mask=head_mask)
+        sequence_output = outputs[0]
+        logits = self.classifier(sequence_output)
 
-        # Keep mems, hidden states, attentions if there are in it
-        outputs = (logits,) + transformer_outputs[1:]
+        outputs = (logits,) + outputs[2:]
 
         if labels is not None:
             loss_fct = BCEWithLogitsLoss()
