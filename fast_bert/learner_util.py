@@ -1,11 +1,11 @@
 import torch
 from pathlib import Path
 
-from transformers import (ConstantLRSchedule,
-                          WarmupCosineSchedule, 
-                          WarmupConstantSchedule, 
-                          WarmupLinearSchedule, 
-                          WarmupCosineWithHardRestartsSchedule,
+from transformers import (get_constant_schedule,
+                          get_cosine_schedule_with_warmup, 
+                          get_constant_schedule_with_warmup, 
+                          get_linear_schedule_with_warmup, 
+                          get_cosine_with_hard_restarts_schedule_with_warmup,
                           AdamW
                          )
 
@@ -67,12 +67,12 @@ class Learner(object):
     def get_scheduler(self, optimizer, t_total, schedule_type='warmup_linear'):
 
         SCHEDULES = {
-            None:       ConstantLRSchedule,
-            "none":     ConstantLRSchedule,
-            "warmup_cosine": WarmupCosineSchedule,
-            "warmup_constant": WarmupConstantSchedule,
-            "warmup_linear": WarmupLinearSchedule,
-            "warmup_cosine_hard_restarts": WarmupCosineWithHardRestartsSchedule
+            None:       get_constant_schedule,
+            "none":     get_constant_schedule,
+            "warmup_cosine": get_cosine_schedule_with_warmup,
+            "warmup_constant": get_constant_schedule_with_warmup,
+            "warmup_linear": get_linear_schedule_with_warmup,
+            "warmup_cosine_hard_restarts": get_cosine_with_hard_restarts_schedule_with_warmup
         }
 
         return SCHEDULES[schedule_type](optimizer, warmup_steps=self.warmup_steps, t_total=t_total)
