@@ -75,7 +75,7 @@ class Learner(object):
             "warmup_cosine_hard_restarts": get_cosine_with_hard_restarts_schedule_with_warmup
         }
 
-        return SCHEDULES[schedule_type](optimizer, warmup_steps=self.warmup_steps, t_total=t_total)
+        return SCHEDULES[schedule_type](optimizer, num_warmup_steps=self.warmup_steps, num_training_steps=t_total)
     
     def save_model(self): 
         
