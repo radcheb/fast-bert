@@ -2,7 +2,9 @@ import os
 from .data_cls import BertDataBunch, InputExample, InputFeatures
 from .learner_util import Learner
 
-from .modeling import BertForMultiLabelSequenceClassification, XLNetForMultiLabelSequenceClassification, RobertaForMultiLabelSequenceClassification, DistilBertForMultiLabelSequenceClassification
+from .modeling import BertForMultiLabelSequenceClassification, XLNetForMultiLabelSequenceClassification, \
+    RobertaForMultiLabelSequenceClassification, DistilBertForMultiLabelSequenceClassification, \
+    CamembertForMultiLabelSequenceClassification
 
 from pathlib import Path
 
@@ -23,7 +25,7 @@ MODEL_CLASSES = {
     'xlm': (XLMConfig, (XLMForSequenceClassification, XLMForSequenceClassification), XLMTokenizer),
     'roberta': (RobertaConfig, (RobertaForSequenceClassification, RobertaForMultiLabelSequenceClassification), RobertaTokenizer),
     'distilbert': (DistilBertConfig, (DistilBertForSequenceClassification, DistilBertForMultiLabelSequenceClassification), DistilBertTokenizer),
-    'camembert': (CamembertConfig, (CamembertForSequenceClassification, DistilBertForMultiLabelSequenceClassification), CamembertTokenizer)
+    'camembert': (CamembertConfig, (CamembertForSequenceClassification, CamembertForMultiLabelSequenceClassification), CamembertTokenizer)
 }
 
 
