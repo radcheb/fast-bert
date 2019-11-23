@@ -3,14 +3,15 @@ import torch
 from transformers import BertTokenizer
 from .data_cls import BertDataBunch
 from .learner_cls import BertLearner
-from .modeling import BertForMultiLabelSequenceClassification, XLNetForMultiLabelSequenceClassification, RobertaForMultiLabelSequenceClassification, DistilBertForMultiLabelSequenceClassification
+from .modeling import BertForMultiLabelSequenceClassification, XLNetForMultiLabelSequenceClassification, RobertaForMultiLabelSequenceClassification, DistilBertForMultiLabelSequenceClassification, CamembertForMultiLabelSequenceClassification
 
 from transformers import (WEIGHTS_NAME,
                           BertConfig, BertForSequenceClassification, BertTokenizer,
                           XLMConfig, XLMForSequenceClassification, XLMTokenizer,
                           XLNetConfig, XLNetForSequenceClassification, XLNetTokenizer,
                           RobertaConfig, RobertaForSequenceClassification, RobertaTokenizer,
-                          DistilBertConfig, DistilBertForSequenceClassification, DistilBertTokenizer
+                          DistilBertConfig, DistilBertForSequenceClassification, DistilBertTokenizer,
+                          CamembertConfig, CamembertForSequenceClassification, CamembertTokenizer
                           )
 
 import warnings
@@ -22,7 +23,8 @@ MODEL_CLASSES = {
     'xlnet': (XLNetConfig, (XLNetForSequenceClassification, XLNetForMultiLabelSequenceClassification), XLNetTokenizer),
     'xlm': (XLMConfig, (XLMForSequenceClassification, XLMForSequenceClassification), XLMTokenizer),
     'roberta': (RobertaConfig, (RobertaForSequenceClassification, RobertaForMultiLabelSequenceClassification), RobertaTokenizer),
-    'distilbert': (DistilBertConfig, (DistilBertForSequenceClassification, DistilBertForMultiLabelSequenceClassification), DistilBertTokenizer)
+    'distilbert': (DistilBertConfig, (DistilBertForSequenceClassification, DistilBertForMultiLabelSequenceClassification), DistilBertTokenizer),
+    'camembert': (CamembertConfig, (CamembertForSequenceClassification, CamembertForMultiLabelSequenceClassification), CamembertTokenizer)
 }
 
 

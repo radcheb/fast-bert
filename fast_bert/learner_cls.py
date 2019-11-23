@@ -6,8 +6,6 @@ from .modeling import BertForMultiLabelSequenceClassification, XLNetForMultiLabe
 
 from pathlib import Path
 
-from torch.optim.lr_scheduler import _LRScheduler, Optimizer
-
 from tensorboardX import SummaryWriter
 
 from transformers import (WEIGHTS_NAME, 
@@ -15,7 +13,8 @@ from transformers import (WEIGHTS_NAME,
                           XLMConfig, XLMForSequenceClassification,XLMTokenizer, 
                           XLNetConfig,XLNetForSequenceClassification,XLNetTokenizer, 
                           RobertaConfig, RobertaForSequenceClassification, RobertaTokenizer,
-                          DistilBertConfig, DistilBertForSequenceClassification, DistilBertTokenizer)
+                          DistilBertConfig, DistilBertForSequenceClassification, DistilBertTokenizer,
+                          CamembertConfig, CamembertForSequenceClassification, CamembertTokenizer)
 
 
 MODEL_CLASSES = {
@@ -23,7 +22,8 @@ MODEL_CLASSES = {
     'xlnet': (XLNetConfig, (XLNetForSequenceClassification, XLNetForMultiLabelSequenceClassification), XLNetTokenizer),
     'xlm': (XLMConfig, (XLMForSequenceClassification, XLMForSequenceClassification), XLMTokenizer),
     'roberta': (RobertaConfig, (RobertaForSequenceClassification, RobertaForMultiLabelSequenceClassification), RobertaTokenizer),
-    'distilbert': (DistilBertConfig, (DistilBertForSequenceClassification, DistilBertForMultiLabelSequenceClassification), DistilBertTokenizer)
+    'distilbert': (DistilBertConfig, (DistilBertForSequenceClassification, DistilBertForMultiLabelSequenceClassification), DistilBertTokenizer),
+    'camembert': (CamembertConfig, (CamembertForSequenceClassification, DistilBertForMultiLabelSequenceClassification), CamembertTokenizer)
 }
 
 

@@ -12,12 +12,14 @@ from .data_lm import BertLMDataBunch
 from transformers import (WEIGHTS_NAME,
                                   BertConfig, BertForMaskedLM,
                                   RobertaConfig, RobertaForMaskedLM,
-                                  DistilBertConfig, DistilBertForMaskedLM)
+                                  DistilBertConfig, DistilBertForMaskedLM,
+                                  CamembertConfig, CamembertForMaskedLM)
 
 MODEL_CLASSES = {
     'bert': (BertConfig, BertForMaskedLM),
     'roberta': (RobertaConfig, RobertaForMaskedLM),
-    'distilbert': (DistilBertConfig, DistilBertForMaskedLM)
+    'distilbert': (DistilBertConfig, DistilBertForMaskedLM),
+    'camembert': (CamembertConfig, CamembertForMaskedLM)
 }
 
 class BertLMLearner(Learner):
